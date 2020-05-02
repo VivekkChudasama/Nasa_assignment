@@ -11,47 +11,46 @@ class Welcome extends React.Component {
             IsDisabled: true,
             ShowRandomList: false,
             Asteroid_ID_Date: null,
-            Asteroid_ID_List: [],
+            Asteroid_ID_List: []
         };
     }
 
     updateField(itemValue) {
         this.state.Asteroid_ID = itemValue;
-        this.state.IsDisabled = (itemValue == '') ? true : false;
+        this.state.IsDisabled = (itemValue == "") ? true : false;
         this.setState({});
     }
     fetchData(itemValue){
-        if(itemValue == 'random') {
+        if(itemValue == "random") {
             this.setState({
                 ShowRandomList: true
             });
             fetch(APIS.Random_Url).then(response => {
                 return response.json();
             }).then(responseJson => {
-                if(responseJson != null) {
+                if (responseJson != null) {
                     let objects = responseJson.near_earth_objects;
-                    console.log("Object-->", objects.length);
                     let asteroid_ids = [];
                     for(let i = 0; i < objects.length; i++) {
                         asteroid_ids.push(
-                            <ListItem onPress = {() => this.updateField(objects[i].id)}>
+                            <ListItem onPress={() => this.updateField(objects[i].id)}>
                                 <Text>{objects[i].id}</Text>
                             </ListItem>);
                     }
                     this.setState({
                         Asteroid_ID_Date: null,
-                        Asteroid_ID_List: asteroid_ids,
+                        Asteroid_ID_List: asteroid_ids
                     });
                 }
             }).catch(error => {
                 console.error(error);
-            })
-        }else {
+            });
+        } else {
             this.setState({
                 ShowRandomList: false
             });
-            fetch(APIS.BASE_URL + this.state.Asteroid_ID + "api_key=" + APIS.API_KEY).then(response => {
-                return (response.status != 404 ) ? response.json() : null;
+            fetch(APIS.BASE_URL + this.state.Asteroid_ID + "?api_key=" + APIS.API_KEY).then(response => {
+                return (response.status != 404) ? response.json() : null;
             }).then(responseJson => {
                 let asteroid_id_date = [];
                 if(responseJson != null) {
@@ -83,34 +82,32 @@ class Welcome extends React.Component {
                 });
             }).catch(error => {
                 console.error(error);
-            })
+            });
         }
     }
     render(){
         return (
             <View style={CommonStyle.Container}>
-                <Card>
+                <Card style={{ flexGrow: 0.05 }}>
                     <CardItem>
-                        <Text>
-                            <Input value={this.state.Asteroid_ID} placeholder="Enter Asteroid ID" onChangeText={(value) => this.updateField(value)}></Input>
-                        </Text>
+                        <Item>
+                            <Input value={this.state.Asteroid_ID} placeholder="Enter Asteroid ID" onChangeItem={(value) => this.updateField(value)}></Input>
+                        </Item>
+                    </CardItem>
+                    <CardItem>
+                        <Button style={[(this.state.IsDisabled) ? CommonStyle.DisableButton : CommonStyle.EnableButton]} disabled={this.state.IsDisabled} onPress={() => this.fetchData("normal")}>
+                            <Text style={CommonStyle.ButtonText}>Submit</Text>
+                        </Button>
                     </CardItem>
                     <CardItem>
                         <Text>
-                            <Button style={[(this.state.IsDisabled) ? CommonStyle.DisableButton : CommonStyle.EnableButton]} disabled={this.state.IsDisabled} onPress={() => this.fetchData('normal')}>
-                                <Text style={CommonStyle.ButtonText}>Submit</Text>
-                            </Button>
-                        </Text>
-                    </CardItem>
-                    <CardItem>
-                        <Text>
-                            <Button style={CommonStyle.EnableButton} onPress={() => this.fetchData('random')}>
+                            <Button style={CommonStyle.EnableButton} onPress={() => this.fetchData("random")}>
                                 <Text style={CommonStyle.ButtonText}>Random Asteroid</Text>
                             </Button>
                         </Text>
                     </CardItem>
                 </Card>
-                <Card>
+                <Card style={{ flex: 0.95 }}>
                     <SafeAreaView>
                         <ScrollView>
                             <List>{
@@ -130,20 +127,20 @@ export const CommonStyle = StyleSheet.create({
     Container: {
         flex: 1
     },
-    DisableButton : {
-        backgroundColor: '#D3D3D3',
+    DisableButton: {
+        backgroundColor: '#D3D3D3'
     },
-    EnableButton : {
-        backgroundColor: 'blue',
+    EnableButton: {
+        backgroundColor: '#054DA1'
     },
-    ButtonText : {
+    ButtonText: {
         width: '100%',
         textAlign: 'center',
-        color: '#ffffff',
-        textTransform: 'uppercase',
+        color: '#FFFFFF',
+        textTransform: 'uppercase'
     },
-    BoldText:{
-        fontWeight: 'bold',
+    BoldText: {
+        fontWeight: 'bold'
     }
 });
 

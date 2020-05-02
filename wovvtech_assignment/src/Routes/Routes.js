@@ -1,18 +1,18 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import Welcome from '../Component/Welcome.js';
+import Welcome from '../Component/Welcome';
 
-const Routes = createStackNavigator ({
+const Project = createStackNavigator({
     Welcome: {
         screen: Welcome,
         navigationOptions: {
-            title: 'WovvTech_assignment',
-            headerTintColor: '#fff',
+            title: 'WovvTechAssignment',
+            headerTintColor: '#ffffff',
             headerStyle: {
-                backgroundColor: '#054DA1',
+                backgroundColor: '#054DA1'
             }
         }
     }
 });
 
-export default createAppContainer(Routes);
+export default createAppContainer(Project);
