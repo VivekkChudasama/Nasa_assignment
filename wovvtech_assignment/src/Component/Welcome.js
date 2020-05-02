@@ -40,7 +40,7 @@ class Welcome extends React.Component {
                     }
                     this.setState({
                         Asteroid_ID_Date: null,
-                        Asteroid_ID_List: asteroid_ids
+                        Asteroid_ID_List: asteroid_ids,
                     });
                 }
             }).catch(error => {
@@ -57,10 +57,12 @@ class Welcome extends React.Component {
                 let asteroid_id_date = [];
                 if(responseJson != null) {
                     asteroid_id_date.push(
-                        <View> <ListItem> <Text>name: <Text style={CommonStyle.BoldText}>{responseJson.name}</Text></Text>
+                        <View>
+                            <ListItem>
+                                <Text>name:<Text style={CommonStyle.BoldText}>{responseJson.name}</Text></Text>
                             </ListItem>
                             <ListItem>
-                                <Text>nasa_jpl_url: <Text style={CommonStyle.BoldText}>{responseJson.nasa_jpl_url}</Text></Text>
+                                <Text>nasa_jpl_url:<Text style={CommonStyle.BoldText}>{responseJson.nasa_jpl_url}</Text></Text>
                             </ListItem>
                             <ListItem>
                                 <Text>is_potentially_hazardous_asteroid: <Text style={CommonStyle.BoldText}>{responseJson.is_potentially_hazardous_asteroid.toString()}</Text></Text>
@@ -85,13 +87,6 @@ class Welcome extends React.Component {
             })
         }
     }
-    randomList () {
-        if(this.state.ShowRandomList) { 
-            return this.state.Asteroid_ID_List;
-        } else{
-            this.state.Asteroid_ID_Date;
-        }
-    }
     render(){
         return (
             <View style={CommonStyle.Container}>
@@ -104,14 +99,14 @@ class Welcome extends React.Component {
                     <CardItem>
                         <Text>
                             <Button style={[(this.state.IsDisabled) ? CommonStyle.DisableButton : CommonStyle.EnableButton]} disabled={this.state.IsDisabled} onPress={() => this.fetchData('normal')}>
-                                <Text style= {CommonStyle.ButtonText} >Submit</Text>
+                                <Text style={CommonStyle.ButtonText}>Submit</Text>
                             </Button>
                         </Text>
                     </CardItem>
                     <CardItem>
                         <Text>
                             <Button style={CommonStyle.EnableButton} onPress={() => this.fetchData('random')}>
-                                <Text style= {CommonStyle.ButtonText}>Random Asteroid</Text>
+                                <Text style={CommonStyle.ButtonText}>Random Asteroid</Text>
                             </Button>
                         </Text>
                     </CardItem>
@@ -119,14 +114,16 @@ class Welcome extends React.Component {
                 <Card>
                     <SafeAreaView>
                         <ScrollView>
-                            <List>{ this.randomList()  // (this.state.ShowRandomList) ? (this.state.Asteroid_ID_List) : (this.state.Asteroid_ID_Date)
+                            <List>{
+                                (this.state.ShowRandomList) ? (this.state.Asteroid_ID_List) : (this.state.Asteroid_ID_Date)
+                                // this.randomList()
                                 }
                             </List>
                         </ScrollView>
                     </SafeAreaView>
                 </Card>
             </View>
-        )
+        );
     }
 };
 
@@ -135,20 +132,20 @@ export const CommonStyle = StyleSheet.create({
         flex: 1
     },
     DisableButton : {
-        backgroundColor: '#D3D3D3'
+        backgroundColor: '#D3D3D3',
     },
     EnableButton : {
-        backgroundColor: 'blue'
+        backgroundColor: 'blue',
     },
     ButtonText : {
         width: '100%',
         textAlign: 'center',
         color: '#ffffff',
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
     },
     BoldText:{
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     }
-})
+});
 
 export default Welcome;

@@ -9,7 +9,7 @@ const Routes = createStackNavigator ({
             title: 'WovvTech_assignment',
             headerTintColor: '#fff',
             headerStyle: {
-                backgroundColor: '#054DA1'
+                backgroundColor: '#054DA1',
             }
         }
     }
