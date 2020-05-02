@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
 import { Button, Card, CardItem, Input, Item, List, ListItem } from 'native-base';
-import * as APIS from './Constants';
+import * as APIS from './API';
 
 class Welcome extends React.Component {
 	constructor(props) {
