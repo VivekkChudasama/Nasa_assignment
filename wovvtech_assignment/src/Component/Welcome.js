@@ -53,7 +53,6 @@ class Welcome extends React.Component {
             fetch(APIS.BASE_URL + this.state.Asteroid_ID + "api_key=" + APIS.API_KEY).then(response => {
                 return (response.status != 404 ) ? response.json() : null;
             }).then(responseJson => {
-                console.log("responseJson----------------->", JSON.stringify(responseJson));
                 let asteroid_id_date = [];
                 if(responseJson != null) {
                     asteroid_id_date.push(
